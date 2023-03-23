@@ -10,7 +10,7 @@
 <ul>
     <?php foreach($users as $user) : ?>
       <li>
-        <?= $task->name; ?>
+        <?= $user->name; ?>
       </li>
     <?php endforeach; ?>
   </ul>

@@ -1,8 +1,8 @@
 <?php
 
-// require 'core/bootstrap.php';
+require 'core/bootstrap.php';
 
-// $tasks = $query->selectAll('todos', 'Task');
+$users = $app['database']->selectAll('users', 'User');
 // $tasks = $query->selectAll('table-that-does-not-exist', 'Task');
 
 // $tasks = array_map(function ($tasks){
