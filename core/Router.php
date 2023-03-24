@@ -2,7 +2,9 @@
 
 class Router{
 
-  protected $routes = [];
+  public $routes = [];
+
+  public function __construct(){}
 
   public static function load($file){
     $router = new static; //create a new instance to access routes.php
@@ -11,6 +13,7 @@ class Router{
   }
   public function define($routes){
     $this->routes = $routes;
+
   }
 
   public function direct($uri){
