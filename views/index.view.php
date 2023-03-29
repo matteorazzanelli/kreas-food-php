@@ -1,7 +1,20 @@
-<?php require('partials/head.php'); ?>
+<?php require('partials/head.php'); session_start();?>
+
+<?php
+  // $content = $_REQUEST['content'];
+  echo '<p style="color:red">'.$content."</p>\n";
+  // echo '<p style="color:red">'.http_response_code()."</p>\n";
+  var_dump($_SESSION);
+?>
 
   <?php foreach ($users as $user) : ?>
-    <li><?= $user->name; ?></li>
+    <li>
+      <?php if ($user->completed) : ?>
+        <strike><?= $user->name; ?></strike>
+      <?php else: ?>
+        <?= $user->name; ?>
+      <?php endif; ?>
+    </li>
   <?php endforeach; ?>
   
   <h1>Submit your name</h1>

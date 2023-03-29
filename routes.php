@@ -11,7 +11,7 @@
 // to call names only for post requests comment out above and then do:
 $router->get('','controllers/index.php');
 $router->get('about','controllers/about.php');
-$router->get('about/culture','controllers/abot-culture.php');
+$router->get('about/culture','controllers/about-culture.php');
 $router->get('contact','controllers/contact.php');
 $router->post('names','controllers/add-name.php');
 
