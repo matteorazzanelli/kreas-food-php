@@ -6,10 +6,12 @@
 // $responses = parse_http_response_header($http_response_header);
 // $code = $responses[0]['status']['code']; // last status code
 // echo "Status code (after all redirects): $code<br>\n";
-var_dump($http_response_header);
-var_dump($_SERVER);
+// var_dump($http_response_header);
+// var_dump($_SERVER);
 
-$users = $app['database']->selectAll('users', 'User');
+// with App::bind
+$users = App::get('database')->selectAll('users', 'User');
+// $users = $app['database']->selectAll('users', 'User');
 
 // do here to divide responsability
 // session_start();
