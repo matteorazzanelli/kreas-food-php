@@ -4,7 +4,7 @@
   // $content = $_REQUEST['content'];
   echo '<p style="color:red">'.$content."</p>\n";
   // echo '<p style="color:red">'.http_response_code()."</p>\n";
-  var_dump($_SESSION);
+  var_dump($_GET);
 ?>
 
   <?php foreach ($users as $user) : ?>
