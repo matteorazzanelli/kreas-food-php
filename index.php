@@ -1,6 +1,8 @@
 <?php
 echo http_response_code();
 
+require 'vendor/autoload.php';
+
 require 'core/bootstrap.php';
 
 // die(var_dump($app));
