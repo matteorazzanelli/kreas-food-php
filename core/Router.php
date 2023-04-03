@@ -33,10 +33,49 @@ class Router{
   //   }
   //   throw new Exception('No route defined.');
   // }
-  public function direct($uri, $requestType){
-    if(array_key_exists($uri, $this->routes[$requestType])){
-      return $this->routes[$requestType][$uri];
+  // public function direct($uri, $requestType){
+  //   if(array_key_exists($uri, $this->routes[$requestType])){
+  //     return $this->routes[$requestType][$uri];
+  //   }
+  //   throw new Exception('No route defined.');
+  // }
+  /**
+     * Load the requested URI's associated controller method.
+     *
+     * @param string $uri
+     * @param string $requestType
+     */
+    public function direct($uri, $requestType)
+    {
+      // PageController@home => explode!
+      // ... with this each of the item of the array will be converted in 
+      // a separated argument !
+        if (array_key_exists($uri, $this->routes[$requestType])) {
+            return $this->callAction(
+                ...explode('@', $this->routes[$requestType][$uri])
+            );
+        }
+
+        throw new Exception('No route defined for this URI.');
     }
-    throw new Exception('No route defined.');
-  }
+
+    /**
+     * Load and call the relevant controller action.
+     *
+     * @param string $controller
+     * @param string $action, i.e. the page
+     */
+    protected function callAction($controller, $action)
+    {
+        // $controller = "App\\Controllers\\{$controller}";
+        $controller = new $controller;
+
+        if (! method_exists($controller, $action)) {
+            throw new Exception(
+                "{$controller} does not respond to the {$action} action."
+            );
+        }
+
+        return $controller->$action();
+    }
 }

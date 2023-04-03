@@ -30,3 +30,5 @@ if(!isset($_SESSION["last_result"])){
   $_SESSION["last_result"]='Perform an action';
   $_SESSION["last_http_response"]=200;
 }
+
+require 'helpers.php';
