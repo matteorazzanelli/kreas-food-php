@@ -2,6 +2,8 @@
 
 // controller is responsible for recevingn request delegating and return a response
 
+namespace App\Controllers;
+
 class PagesController
 {
   // Receive the request

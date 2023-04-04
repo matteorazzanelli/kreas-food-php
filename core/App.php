@@ -2,6 +2,9 @@
 // it is a place to register or bind dependencies , it is just a storage place
 //  like a little registry and then when we fetch these value 
 //  we can resolve them out of our container
+
+namespace App\Core;
+
 class App{
   /**
      * All registered keys.

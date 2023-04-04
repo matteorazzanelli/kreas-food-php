@@ -10,8 +10,10 @@ require 'core/bootstrap.php';
 // require Router::load('routes.php')
 //   ->direct(Request::uri());
 
+use App\Core\{Router, Request};
+
 $router = new Router();
-require 'routes.php';
+require 'app/routes.php';
 $router->direct(Request::uri(), Request::method());
 
 session_destroy();

@@ -16,6 +16,10 @@
 //   Connection::make($app['config']['database'])
 // );
 
+// App\Core\App ---> very messy to do for all!
+// quindi come in c++
+use App\Core\App;
+
 App::bind('config', require 'config.php');
 // die(var_dump(App::get('config')));
 $config = App::get('config');
