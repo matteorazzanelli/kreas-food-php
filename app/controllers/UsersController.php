@@ -12,12 +12,34 @@ class UsersController
    */
   public function index()
   {
-    $users = App::get('database')->selectAll('users', 'User');
-    $content = $_REQUEST['content'];
+    $model = App::get('orderModel');
+    // var_dump($model);
+    $users = $model->selectAll('users', 'User');
+    // $content = $_REQUEST['content'];
     // require 'views/index.view.php';
+
+    // da orizon
+    // resolve()
+    //   renderApi($content)
+    //     $contentJson = json_encode($content)
+    //     $contentType = "Content-type:application/json"
+    //     $code = 200
+    // send()
+    //   header($contentType);
+    //   http_response_code($code);
+    //   echo $contentJson;
+    $contentJson = json_encode($users);
+    $contentType = "Content-type:text/html";
+    $statusCode = 201;
+    header($contentType);
+    http_response_code($statusCode);
+    echo $contentJson;
+    echo getenv('FRONTEND');
+
+
     return view('users', [
       'users' => $users,
-      'content' => $content
+      'statusCode' => $statusCode
     ]);
   }
 

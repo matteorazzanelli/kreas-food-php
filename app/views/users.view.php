@@ -2,6 +2,8 @@
 
     <h1>All Users</h1>
 
+<?php echo '<p style="color:red">'.http_response_code()."</p>\n"; ?>
+
 <?php foreach ($users as $user) : ?>
     <li><?= $user->name; ?></li>
 <?php endforeach; ?>

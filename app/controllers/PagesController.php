@@ -24,7 +24,7 @@ class PagesController
     //   'users' => $users,
     //   'content' => $content
     // ]);
-    return view('index');
+    view('index');
   }
 
   /**
@@ -34,7 +34,7 @@ class PagesController
   {
     // require 'views/about.view.php';
     $company = 'Laracasts';
-    return view('about', ['company' => $company]);
+    view('about', ['company' => $company]);
   }
 
   /**
@@ -43,6 +43,6 @@ class PagesController
   public function contact()
   {
     // require 'views/contact.view.php';
-    return view('contact');
+    view('contact');
   }
 }

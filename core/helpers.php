@@ -9,7 +9,7 @@
 function view($name, $data = [])
 {
     extract($data);
-
+    // http_response_code(404);
     return require "app/views/{$name}.view.php";
 }
 

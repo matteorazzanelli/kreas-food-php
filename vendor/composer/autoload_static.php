@@ -12,12 +12,13 @@ class ComposerStaticInit58f0e54b5cb7357ef325e4846f3307f3
         'App\\Core\\App' => __DIR__ . '/../..' . '/core/App.php',
         'App\\Core\\Request' => __DIR__ . '/../..' . '/core/Request.php',
         'App\\Core\\Router' => __DIR__ . '/../..' . '/core/Router.php',
-        'App\\Models\\Project' => __DIR__ . '/../..' . '/app/models/Project.php',
+        'App\\Models\\Model' => __DIR__ . '/../..' . '/app/models/Model.php',
+        'App\\Models\\OrderModel' => __DIR__ . '/../..' . '/app/models/OrderModel.php',
+        'App\\Models\\ProductModel' => __DIR__ . '/../..' . '/app/models/ProductModel.php',
         'ComposerAutoloaderInit58f0e54b5cb7357ef325e4846f3307f3' => __DIR__ . '/..' . '/composer/autoload_real.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInit58f0e54b5cb7357ef325e4846f3307f3' => __DIR__ . '/..' . '/composer/autoload_static.php',
-        'Connection' => __DIR__ . '/../..' . '/core/database/Connection.php',
-        'QueryBuilder' => __DIR__ . '/../..' . '/core/database/QueryBuilder.php',
+        'Connection' => __DIR__ . '/../..' . '/core/Connection.php',
         'User' => __DIR__ . '/../..' . '/app/User.php',
     );
 
