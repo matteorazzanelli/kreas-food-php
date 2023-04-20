@@ -2,16 +2,14 @@
 
 
 use App\Core\App;
-use App\Models\OrderModel;
-use App\Models\ProductModel;
+use App\Models\Model;
 
 App::bind('config', require 'config.php');
 
 $config = App::get('config');
 $pdo = Connection::make($config['database']);
 
-// to do only once
-App::bind('orderModel', new OrderModel($pdo));
-App::bind('productModel', new ProductModel($pdo));
+// bind to model, it not depends on the specific application
+App::bind('model', new Model($pdo));
 
 require 'helpers.php';
