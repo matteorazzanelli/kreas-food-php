@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Core\App;
 
-class UsersController
+class ProductsController
 {
   
   /**
@@ -12,9 +12,8 @@ class UsersController
    */
   public function index()
   {
-    $model = App::get('orderModel');
-    // var_dump($model);
-    $users = $model->selectAll('users', 'User');
+    $model = App::get('model');
+    $products = $model->selectAll('products', 'App\\Models\\ProductModel');
     // $content = $_REQUEST['content'];
     // require 'views/index.view.php';
 
@@ -28,7 +27,7 @@ class UsersController
     //   header($contentType);
     //   http_response_code($code);
     //   echo $contentJson;
-    $contentJson = json_encode($users);
+    $contentJson = json_encode($products);
     $contentType = "Content-type:text/html";
     $statusCode = 201;
     header($contentType);
@@ -37,8 +36,8 @@ class UsersController
     echo getenv('FRONTEND');
 
 
-    return view('users', [
-      'users' => $users,
+    return view('products', [
+      'products' => $products,
       'statusCode' => $statusCode
     ]);
   }
@@ -47,12 +46,13 @@ class UsersController
   {
     // insert the user associated with the request
     // then, redirect back to all users
-    App::get('database')->insert('users', [
+    var_dump($_POST);
+    App::get('model')->insert('products', [
       'name' => $_POST['name'],
-      'completed' => 0
+      'co2' => $_POST['co2']
     ]);
     // header('Location: /users');
-    return redirect('users');
+    return redirect('products');
   }
 
 }
