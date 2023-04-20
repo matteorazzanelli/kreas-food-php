@@ -5,11 +5,10 @@ use App\Models\Model;
 
 class OrderModel extends Model{
 
-
-     public function __construct($pdo)
-     {
-          parent::__construct($pdo);
-     }
-
-
+  protected $date;
+  protected $country;
+  
+  public function __construct($pdo){
+    parent::__construct($pdo);
+  }
 }

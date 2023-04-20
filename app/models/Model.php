@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Exception;
 
 class Model
 {
@@ -17,32 +18,22 @@ class Model
   }
 
   public function insert($table, $values){
-
+    var_dump($values);
     $keys = array_keys($values);
     $fields = implode(",", $keys);
     $placeholder = implode(",", array_map(fn ($key) => ":$key", $keys));
     $query = "INSERT into $table ($fields) VALUES ($placeholder);";
-    $statement = $this->pdo->prepare($query);
-    foreach ($values as $field => $fieldValue) {
-      $statement->bindValue(":$field", $fieldValue);
+
+    try{
+      $statement = $this->pdo->prepare($query);
+      foreach ($values as $field => $fieldValue) {
+        $statement->bindValue(":$field", $fieldValue);
+      }
+      $statement->execute();
     }
-    $statement->execute();
-    // // substitute with bind
-    // $sql = sprintf(
-    //   'insert into %s (%s) values (%s)',
-    //   $table,
-    //   implode(', ', array_keys($parameters)),
-    //   ':' . implode(', :', array_keys($parameters))
-    // );
-
-    // // die(var_dump($sql));
-
-    // try {
-    //   $statement = $this->pdo->prepare($sql);
-    //   $statement->execute($parameters);
-    // } catch (Exception $e) {
-    //   //
-    // }
+    catch (Exception $e){
+      
+    }
     return true;
   }
 }
