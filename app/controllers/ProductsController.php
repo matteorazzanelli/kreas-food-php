@@ -1,45 +1,29 @@
 <?php
 
+// da orizon
+// resolve()
+//   renderApi($content)
+//     $contentJson = json_encode($content)
+//     $contentType = "Content-type:application/json"
+//     $code = 200
+// send()
+//   header($contentType);
+//   http_response_code($code);
+//   echo $contentJson;
+
 namespace App\Controllers;
 
-use App\Core\App;
+use App\Core\{App, Controller};
 
-class ProductsController
+class ProductsController extends Controller
 {
   
-  /**
-   * Show the home page.
-   */
   public function index()
   {
     $model = App::get('model');
     $products = $model->selectAll('products', 'App\\Models\\ProductModel');
-    // $content = $_REQUEST['content'];
-    // require 'views/index.view.php';
-
-    // da orizon
-    // resolve()
-    //   renderApi($content)
-    //     $contentJson = json_encode($content)
-    //     $contentType = "Content-type:application/json"
-    //     $code = 200
-    // send()
-    //   header($contentType);
-    //   http_response_code($code);
-    //   echo $contentJson;
-    $contentJson = json_encode($products);
-    $contentType = "Content-type:text/html";
-    $statusCode = 201;
-    header($contentType);
-    http_response_code($statusCode);
-    echo $contentJson;
-    echo getenv('FRONTEND');
-
-
-    return view('products', [
-      'products' => $products,
-      'statusCode' => $statusCode
-    ]);
+    $this->setCode(200);
+    return $this->renderApi($products, 'products');
   }
 
   public function store()
