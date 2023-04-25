@@ -2,37 +2,28 @@
 
 namespace App\Controllers;
 
-use App\Core\App;
+use App\Core\{App, Controller};
 
-class OrdersController
+class OrdersController extends Controller
 {
   public function index()
   {
     $model = App::get('model');
     $orders = $model->selectAll('orders', 'App\\Models\\OrderModel');
-
-    $contentJson = json_encode($orders);
-    $contentType = "Content-type:text/html";
-    $statusCode = 201;
-    header($contentType);
-    http_response_code($statusCode);
-    echo $contentJson;
-    echo getenv('FRONTEND');
-
-
-    return view('orders', [
-      'orders' => $orders,
-      'statusCode' => $statusCode
-    ]);
+    $this->setCode(200);
+    return $this->renderApi($orders, 'orders');
   }
 
   public function store()
   {
-    App::get('model')->insert('orders', [
+    $model = App::get('model');
+    // deve tornare un id così che nel caso manchi il frontend posso mettere in echo quello
+    $newOrder = $model->insert('orders', [
       'date' => $_POST['date'],
       'country' => $_POST['country']
     ]);
-    return redirect('orders');
+    $this->setCode(201);
+    return $this->renderApi($newOrder, 'orders');
   }
 
 }
