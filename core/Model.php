@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Core;
 use Exception;
 
 class Model
@@ -18,7 +18,6 @@ class Model
   }
 
   public function insert($table, $values){
-    var_dump($values);
     $keys = array_keys($values);
     $fields = implode(",", $keys);
     $placeholder = implode(",", array_map(fn ($key) => ":$key", $keys));
@@ -34,6 +33,7 @@ class Model
     catch (Exception $e){
       
     }
-    return true;
+    // to check if last insert operation is ok
+    return $this->pdo->lastInsertId();
   }
 }
