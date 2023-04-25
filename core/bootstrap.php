@@ -2,7 +2,7 @@
 
 
 use App\Core\App;
-use App\Models\Model;
+use App\Core\Model;
 
 App::bind('config', require 'config.php');
 
