@@ -9,13 +9,17 @@
     </ul>
   </p>
 
-<?php echo '<p style="color:red">'.http_response_code()."</p>\n"; ?>
+<?= 'Response code : <span style="color:red">'.http_response_code().', '. $message ."</span>\n"; ?>
 
 <?php if(is_array($result)) : ?>
-  <?php foreach ($result as $order) : ?>
-    <li><?= $order->id; ?>, <?= $order->date; ?>, <?= $order->country; ?></li>
-  <?php endforeach; ?>
+  <ul><!-- showing the list -->
+    <li><span style="text-decoration:underline;">ID, DATE, Country</span></li>
+    <?php foreach ($result as $order) : ?>
+      <li><?= $order->id; ?>, <?= $order->date; ?>, <?= $order->country; ?></li>
+    <?php endforeach; ?>
+  </ul>
 <?php else : ?>
+  <!-- showing the last result -->
   <?= $result ?>
 <?php endif ?>
 
