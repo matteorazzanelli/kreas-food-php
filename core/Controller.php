@@ -12,14 +12,19 @@ class Controller{
   private $content; 
   private $statusCode;
   private $contentType;
-
-  public function renderApi($content, $objectPage){
+  /**
+   * content, to be output
+   * objectPage, to render
+   * message, additional 
+   */
+  public function renderApi($data){
+    extract($data);
     if(getenv('FRONTEND')==true){
-      $this->content = $content;
+      $this->content = $result;
       $this->contentType = "Content-type:text/html";
     }
     else{
-      $this->content = json_encode($content);
+      $this->content = json_encode($result);
       $this->contentType = "Content-type:application/json";
     }
 
@@ -27,8 +32,9 @@ class Controller{
     http_response_code($this->statusCode);
 
     if(getenv('FRONTEND')==true){
-      return view($objectPage, [
-        'result' => $this->content
+      return view($page, [
+        'result' => $this->content,
+        'message' => $message
       ]);
     }
     else{

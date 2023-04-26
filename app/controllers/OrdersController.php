@@ -11,7 +11,11 @@ class OrdersController extends Controller
     $model = App::get('model');
     $orders = $model->selectAll('orders', 'App\\Models\\OrderModel');
     $this->setCode(200);
-    return $this->renderApi($orders, 'orders');
+    return $this->renderApi([
+      'result' => $orders,
+      'page' => 'orders',
+      'message' => 'showing complete list'
+    ]);
   }
 
   public function store()
@@ -23,7 +27,11 @@ class OrdersController extends Controller
       'country' => $_POST['country']
     ]);
     $this->setCode(201);
-    return $this->renderApi($newOrder, 'orders');
+    return $this->renderApi([
+      'result' => $newOrder,
+      'page' => 'orders',
+      'message' => 'new order added with ID'
+    ]);
   }
 
 }
