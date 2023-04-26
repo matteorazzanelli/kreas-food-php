@@ -10,12 +10,22 @@ class OrdersController extends Controller
   {
     $model = App::get('model');
     $orders = $model->selectAll('orders', 'App\\Models\\OrderModel');
-    $this->setCode(200);
-    return $this->renderApi([
-      'result' => $orders,
-      'page' => 'orders',
-      'message' => 'showing complete list'
-    ]);
+    if($orders){
+      $this->setCode(200);
+      return $this->renderApi([
+        'result' => $orders,
+        'page' => 'orders',
+        'message' => 'showing complete list'
+      ]);
+    }
+    else{
+      $this->setCode(400);
+      return $this->renderApi([
+        'result' => [],
+        'page' => 'orders',
+        'message' => 'bad request'
+      ]);
+    }
   }
 
   public function store()
@@ -26,12 +36,23 @@ class OrdersController extends Controller
       'date' => $_POST['date'],
       'country' => $_POST['country']
     ]);
-    $this->setCode(201);
-    return $this->renderApi([
-      'result' => $newOrder,
-      'page' => 'orders',
-      'message' => 'new order added with ID'
-    ]);
+    if($newOrder){
+      $this->setCode(201);
+      return $this->renderApi([
+        'result' => $newOrder,
+        'page' => 'orders',
+        'message' => 'new order added with ID'
+      ]);
+    }
+    else{
+      $this->setCode(400);
+      return $this->renderApi([
+        'result' => [],
+        'page' => 'orders',
+        'message' => 'may be the order is already added'
+      ]);
+    }
+    
   }
 
 }
