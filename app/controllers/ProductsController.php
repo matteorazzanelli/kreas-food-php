@@ -22,21 +22,48 @@ class ProductsController extends Controller
   {
     $model = App::get('model');
     $products = $model->selectAll('products', 'App\\Models\\ProductModel');
-    $this->setCode(200);
-    return $this->renderApi($products, 'products');
+    if($products){
+      $this->setCode(200);
+      return $this->renderApi([
+        'result' => $products,
+        'page' => 'products',
+        'message' => 'showing complete list'
+      ]);
+    }
+    else{
+      $this->setCode(400);
+      return $this->renderApi([
+        'result' => [],
+        'page' => 'products',
+        'message' => 'bad request'
+      ]);
+    }
   }
 
   public function store()
   {
     // insert the user associated with the request
-    // then, redirect back to all users
-    var_dump($_POST);
-    App::get('model')->insert('products', [
+    $model = App::get('model');
+    $newProduct = $model->insert('products', [
       'name' => $_POST['name'],
       'co2' => $_POST['co2']
     ]);
-    // header('Location: /users');
-    return redirect('products');
+    if($newProduct){
+      $this->setCode(201);
+      return $this->renderApi([
+        'result' => $newProduct,
+        'page' => 'products',
+        'message' => 'new product added with ID'
+      ]);
+    }
+    else{
+      $this->setCode(400);
+      return $this->renderApi([
+        'result' => [],
+        'page' => 'products',
+        'message' => 'may be the product is already added'
+      ]);
+    }
   }
 
 }
