@@ -13,7 +13,7 @@
 
 <?php if(is_array($result)) : ?>
   <ul><!-- showing the list -->
-    <li><span style="text-decoration:underline;">ID, DATE, Country</span></li>
+    <li><span style="text-decoration:underline;">ID, DATE, COUNTRY</span></li>
     <?php foreach ($result as $order) : ?>
       <li><?= $order->id; ?>, <?= $order->date; ?>, <?= $order->country; ?></li>
     <?php endforeach; ?>

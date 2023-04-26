@@ -52,7 +52,5 @@ class OrdersController extends Controller
         'message' => 'may be the order is already added'
       ]);
     }
-    
   }
-
 }
