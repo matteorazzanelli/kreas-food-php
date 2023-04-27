@@ -41,6 +41,30 @@ class Model
     catch (Exception $e){
       return false;
     }
-    
+  }
+
+  public function update($table, $prop, $value, $where_prop, $where_value){
+    $query = "UPDATE $table SET $prop=:$prop WHERE $where_prop= :$where_prop;";
+    try{
+      $st = $this->pdo->prepare($query);
+      $st->bindValue(":$prop", $value);
+      $st->bindValue(":$where_prop", $where_value);
+      return $st->execute();
+    }
+    catch(Exception $e){
+      return false;
+    }
+  }
+
+  public function delete($table, $prop, $value){
+    $query = "DELETE FROM $table WHERE $prop= :$prop;";
+    try{
+      $st = $this->pdo->prepare($query);
+      $st->bindValue(":$prop", $value);
+      return $st->execute();
+    }
+    catch(Exception $e){
+      return false;
+    }
   }
 }
