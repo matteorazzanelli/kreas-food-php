@@ -8,3 +8,14 @@
 </head>
 <body>
   <?php require('nav.php'); ?>
+
+  <h1>Last result</h1>
+  <p>
+    In the following will be shown:
+    <ul>
+      <li>the last operation result if selected</li>
+      <li>the complete list of orders/products otherwise</li>
+    </ul>
+  </p>
+
+<?= 'Response code : <span style="color:red">'.http_response_code().', '. $message ."</span>\n"; ?>

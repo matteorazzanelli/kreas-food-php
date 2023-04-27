@@ -1,16 +1,5 @@
 <?php require('partials/head.php'); ?>
 
-  <h1>Last result</h1>
-  <p>
-    In the following will be shown:
-    <ul>
-      <li>the last operation result if selected</li>
-      <li>the complete list of orders otherwise</li>
-    </ul>
-  </p>
-
-<?= 'Response code : <span style="color:red">'.http_response_code().', '. $message ."</span>\n"; ?>
-
 <?php if(is_array($result)) : ?>
   <ul><!-- showing the list -->
     <li><span style="text-decoration:underline;">ID, NAME, CO2</span></li>
@@ -20,7 +9,8 @@
   </ul>
 <?php else : ?>
   <!-- showing the last result -->
-  <?= $result ?>
+  <?= $result ?><br>
+  <a href="/products">Show the complete list</a>
 <?php endif ?>
 
 <h1>Operations</h1>
