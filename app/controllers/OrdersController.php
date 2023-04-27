@@ -53,4 +53,12 @@ class OrdersController extends Controller
       ]);
     }
   }
+
+  public function delete(){
+    die(var_dump($_POST));
+  }
+
+  public function patch(){
+    die(var_dump($_POST));
+  }
 }
