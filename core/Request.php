@@ -12,6 +12,6 @@ class Request{
 
   public static function method(){
     // GET or POST
-    return $_SERVER['REQUEST_METHOD'];
+    return $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
   }
 }
