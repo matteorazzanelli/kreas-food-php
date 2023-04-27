@@ -7,7 +7,9 @@ class Router{
 
   protected $routes = [
     'GET'=>[],
-    'POST'=>[]
+    'POST'=>[],
+    'DELETE'=>[],
+    'PATCH'=>[]
   ];
 
   public function __construct(){}
@@ -22,6 +24,14 @@ class Router{
 
   public function post($uri, $controller){
     $this->routes['POST'][$uri] = $controller;
+  }
+
+  public function delete($uri, $controller){
+    $this->routes['DELETE'][$uri] = $controller;
+  }
+
+  public function patch($uri, $controller){
+    $this->routes['PATCH'][$uri] = $controller;
   }
 
   //Load the requested URI's associated controller method.
