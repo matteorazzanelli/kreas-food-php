@@ -10,6 +10,7 @@ class Model
   public function __construct($pdo){
     $this->pdo = $pdo;
   }
+
   public function selectAll($table, $intoClass){
     $query = "SELECT * FROM $table";
     // all the following instructions can emit a ERRMODE_EXCEPTION
@@ -57,13 +58,13 @@ class Model
   }
 
   public function delete($table, $prop, $value){
-    $query = "DELETE FROM $table WHERE $prop= :$prop;";
+    $query = "DELETE FROM $table WHERE $prop=:$prop;";
     try{
       $st = $this->pdo->prepare($query);
       $st->bindValue(":$prop", $value);
-      // $st->execute(); // is always true
+      $res = $st->execute(); // is always true
       // to really understand if some rows was deleted
-      return ($st->execute() && $st->rowCount()>0);
+      return ($res && $st->rowCount()>0);
     }
     catch(Exception $e){
       return false;
