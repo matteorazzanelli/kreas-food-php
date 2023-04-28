@@ -74,6 +74,26 @@ class OrdersController extends Controller {
   }
 
   public function patch(){
-    die(var_dump($_POST));
+    $model = App::get('model');
+    $updatedOrder = $model->update('orders', 'id', $_POST['id'],[
+      'date' => $_POST['date'],
+      'country' => $_POST['country']
+    ]);
+    if($updatedOrder){
+      $this->setCode(200);
+      return $this->renderApi([
+        'result' => $_POST['id'],
+        'page' => 'orders',
+        'message' => 'updated correctly order '
+      ]);
+    }
+    else{
+      $this->setCode(404);
+      return $this->renderApi([
+        'result' => '-1', // fail
+        'page' => 'orders',
+        'message' => 'order does not exist'
+      ]);
+    }
   }
 }
