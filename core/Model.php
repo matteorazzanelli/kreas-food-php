@@ -61,7 +61,9 @@ class Model
     try{
       $st = $this->pdo->prepare($query);
       $st->bindValue(":$prop", $value);
-      return $st->execute();
+      // $st->execute(); // is always true
+      // to really understand if some rows was deleted
+      return ($st->execute() && $st->rowCount()>0);
     }
     catch(Exception $e){
       return false;
