@@ -4,13 +4,11 @@ namespace App\Controllers;
 
 use App\Core\{App, Controller};
 
-class OrdersController extends Controller
-{
-  public function index()
-  {
+class OrdersController extends Controller {
+  public function index(){
     $model = App::get('model');
     $orders = $model->selectAll('orders', 'App\\Models\\OrderModel');
-    if($orders){
+    if(is_array($orders)){ // if the array is empty it doesn't mean the query is wrong
       $this->setCode(200);
       return $this->renderApi([
         'result' => $orders,
@@ -18,7 +16,7 @@ class OrdersController extends Controller
         'message' => 'showing complete list'
       ]);
     }
-    else{
+    else{ // if it is not an array it was returned false => bad request! 
       $this->setCode(400);
       return $this->renderApi([
         'result' => [],
@@ -28,8 +26,7 @@ class OrdersController extends Controller
     }
   }
 
-  public function store()
-  {
+  public function store(){
     $model = App::get('model');
     // deve tornare un id così che nel caso manchi il frontend posso mettere in echo quello
     $newOrder = $model->insert('orders', [

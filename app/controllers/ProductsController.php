@@ -1,28 +1,14 @@
 <?php
 
-// da orizon
-// resolve()
-//   renderApi($content)
-//     $contentJson = json_encode($content)
-//     $contentType = "Content-type:application/json"
-//     $code = 200
-// send()
-//   header($contentType);
-//   http_response_code($code);
-//   echo $contentJson;
-
 namespace App\Controllers;
 
 use App\Core\{App, Controller};
 
-class ProductsController extends Controller
-{
-  
-  public function index()
-  {
+class ProductsController extends Controller{
+  public function index(){
     $model = App::get('model');
     $products = $model->selectAll('products', 'App\\Models\\ProductModel');
-    if($products){
+    if(is_array($products)){ // if the array is empty it doesn't mean the query is wrong
       $this->setCode(200);
       return $this->renderApi([
         'result' => $products,
@@ -30,7 +16,7 @@ class ProductsController extends Controller
         'message' => 'showing complete list'
       ]);
     }
-    else{
+    else{ // if it is not an array it was returned false => bad request! 
       $this->setCode(400);
       return $this->renderApi([
         'result' => [],
@@ -40,8 +26,7 @@ class ProductsController extends Controller
     }
   }
 
-  public function store()
-  {
+  public function store(){
     // insert the user associated with the request
     $model = App::get('model');
     $newProduct = $model->insert('products', [
