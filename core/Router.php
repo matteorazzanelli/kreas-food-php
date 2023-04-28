@@ -35,8 +35,7 @@ class Router{
   }
 
   //Load the requested URI's associated controller method.
-  public function direct($uri, $requestType)
-  {
+  public function direct($uri, $requestType){
     // PageController@home => explode!
     // ... with this each of the item of the array will be converted in 
     // a separated argument !
@@ -50,8 +49,7 @@ class Router{
   }
 
   //Load and call the relevant controller action (i.e. the page)
-  protected function callAction($controller, $action)
-  {
+  protected function callAction($controller, $action){
     $controller = "App\\Controllers\\{$controller}";
     $controller = new $controller;
 
