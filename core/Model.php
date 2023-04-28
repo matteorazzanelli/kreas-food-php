@@ -44,13 +44,18 @@ class Model
     }
   }
 
-  public function update($table, $prop, $value, $where_prop, $where_value){
-    $query = "UPDATE $table SET $prop=:$prop WHERE $where_prop= :$where_prop;";
+  public function update($table, $where_prop, $where_value, $newValues){
+    $keys = array_keys($newValues);
+    $values = array_values($newValues);
+    $placeholder = implode(",", array_map(fn ($key) => "$key=:$key", $keys));
+    $query = "UPDATE $table SET $placeholder WHERE $where_prop=:$where_prop;";
     try{
       $st = $this->pdo->prepare($query);
-      $st->bindValue(":$prop", $value);
+      // bind all paramters
+      array_map(fn($key, $value) => $st->bindValue(":$key", $value), $keys, $values);
       $st->bindValue(":$where_prop", $where_value);
-      return $st->execute();
+      $res = $st->execute(); // is always true
+      return ($res && $st->rowCount()>0);
     }
     catch(Exception $e){
       return false;
