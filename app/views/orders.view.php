@@ -13,8 +13,6 @@
   <a href="/orders">Show the complete list</a>
 <?php endif ?>
 
-
-
 <h1>Operations</h1>
 
 <h2>Create a new order</h2>
@@ -39,7 +37,5 @@
   <input name="country"></input>
   <button type="submit">Patch</button>
 </form>
-
-
 
 <?php require('partials/footer.php'); ?>
