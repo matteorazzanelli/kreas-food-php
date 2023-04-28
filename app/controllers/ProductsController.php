@@ -52,7 +52,25 @@ class ProductsController extends Controller{
   }
 
   public function delete(){
-    die(var_dump($_POST));
+    // die(var_dump($_POST));
+    $model = App::get('model');
+    $deletedProduct = $model->delete('products', 'id', $_POST['id']);
+    if($deletedProduct){
+      $this->setCode(200);
+      return $this->renderApi([
+        'result' => $_POST['id'],
+        'page' => 'products',
+        'message' => 'deleted correctly product '
+      ]);
+    }
+    else{
+      $this->setCode(404);
+      return $this->renderApi([
+        'result' => '-1', // fail
+        'page' => 'products',
+        'message' => 'product does not exist'
+      ]);
+    }
   }
 
   public function patch(){

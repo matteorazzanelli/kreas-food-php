@@ -52,7 +52,25 @@ class OrdersController extends Controller {
   }
 
   public function delete(){
-    die(var_dump($_POST));
+    // die(var_dump($_POST));
+    $model = App::get('model');
+    $deletedOrder = $model->delete('orders', 'id', $_POST['id']);
+    if($deletedOrder){
+      $this->setCode(200);
+      return $this->renderApi([
+        'result' => $_POST['id'],
+        'page' => 'orders',
+        'message' => 'deleted correctly order '
+      ]);
+    }
+    else{
+      $this->setCode(404);
+      return $this->renderApi([
+        'result' => '-1', // fail
+        'page' => 'orders',
+        'message' => 'order does not exist'
+      ]);
+    }
   }
 
   public function patch(){
