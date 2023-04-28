@@ -17,7 +17,9 @@
 
 <h2>Add a new product</h2>
 <form method="POST" action="/products">
-  <input name="name"></input>
+  <label for="name">Name</label>
+  <input id="name" name="name"></input>
+  <label for="co2">CO2</label>
   <input name="co2"></input>
   <button type="submit">Create</button>
 </form>
@@ -25,6 +27,7 @@
 <h2>Delete an existing product</h2>
 <form method="POST" action="/products">
 <input type="hidden" name="_method" value="DELETE">
+  <label for="id">ID</label>  
   <input name="id"></input>
   <button type="submit">Delete</button>
 </form>
@@ -32,8 +35,11 @@
 <h2>Patch an existing product</h2>
 <form method="POST" action="/products">
 <input type="hidden" name="_method" value="PATCH">
+  <label for="id">ID</label>
   <input name="id"></input>
-  <input name="name" type="date"></input>
+  <label for="name">Name</label>
+  <input name="name"></input>
+  <label for="co2">CO2</label>
   <input name="co2"></input>
   <button type="submit">Patch</button>
 </form>
