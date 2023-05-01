@@ -17,8 +17,14 @@
 
 <h2>Create a new order</h2>
 <form method="POST" action="/orders">
+  <label for="date">Date</label>
   <input name="date" type="date"></input>
+  <label for="country">Country</label>
   <input name="country"></input>
+  <label for="products">Products</label>
+  <input name="products" placeholder="separate with comma"></input>
+  <label for="quantities">Quantities</label>
+  <input name="quantities" placeholder="separate with comma"></input>
   <button type="submit">Create</button>
 </form>
 
