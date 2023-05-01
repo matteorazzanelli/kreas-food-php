@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\{App, Controller};
+use App\Models\OrderProductModel;
 
 class OrdersController extends Controller {
   public function index(){
@@ -27,21 +28,26 @@ class OrdersController extends Controller {
   }
 
   public function store(){
+    // [
+    //   "date" => "01/01/1970", 
+    //   "country" => "Italy",    
+    //   "products" => ["p1","p2","p3"],
+    //   "quantities" => [10,20,30],
+    // ];
     $model = App::get('model');
-    // deve tornare un id così che nel caso manchi il frontend posso mettere in echo quello
-    $newOrder = $model->insert('orders', [
+
+    $products = explode(',',trim($_POST['products']," ,"));
+    $quantities = explode(',',trim($_POST['quantities']," ,"));
+    // die();
+
+    // return an id for storing products
+    $idOrder = $model->insert('orders', [
       'date' => $_POST['date'],
       'country' => $_POST['country']
     ]);
-    if($newOrder){
-      $this->setCode(201);
-      return $this->renderApi([
-        'result' => $newOrder,
-        'page' => 'orders',
-        'message' => 'new order added with ID'
-      ]);
-    }
-    else{
+
+    // first try to add order
+    if(!$idOrder){
       $this->setCode(400);
       return $this->renderApi([
         'result' => [],
@@ -49,6 +55,28 @@ class OrdersController extends Controller {
         'message' => 'may be the order is already added'
       ]);
     }
+
+    // then using its id try to add products in the order
+    $order_product = new OrderProductModel();
+    $res = $order_product->storeOrderProduct($idOrder, $products, $quantities, $model);
+    if(!$res){
+      $this->setCode(404);
+      var_dump('hererehe');
+      return $this->renderApi([
+        'result' => '-1',
+        'page' => 'orders',
+        'message' => 'one or more products not found'
+      ]);
+    }
+    else{
+      // if we are here, the order has been well processed
+      $this->setCode(201);
+      return $this->renderApi([
+        'result' => $idOrder,
+        'page' => 'orders',
+        'message' => 'new order added with ID'
+      ]);
+    }    
   }
 
   public function delete(){
