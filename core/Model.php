@@ -75,4 +75,18 @@ class Model
       return false;
     }
   }
+
+  public function getElementFromProperty($table, $prop, $value){
+    $query = "SELECT * from $table WHERE $prop = :$prop;";
+    try{
+      $st = $this->pdo->prepare($query);
+      $st->bindValue(":$prop", $value);
+      $st->execute();
+      // return the first row if exists
+      return $st->fetch(\PDO::FETCH_ASSOC);
+    }
+    catch(Exception $e){
+      return false;
+    }
+  }
 }
