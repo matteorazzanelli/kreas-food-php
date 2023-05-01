@@ -27,7 +27,6 @@ class ProductsController extends Controller{
   }
 
   public function store(){
-    // insert the user associated with the request
     $model = App::get('model');
     $newProduct = $model->insert('products', [
       'name' => $_POST['name'],

@@ -25,6 +25,7 @@
 <h2>Delete an existing order</h2>
 <form method="POST" action="/orders">
 <input type="hidden" name="_method" value="DELETE">
+  <label for="id">ID</label>  
   <input name="id"></input>
   <button type="submit">Delete</button>
 </form>
@@ -32,8 +33,11 @@
 <h2>Patch an existing order</h2>
 <form method="POST" action="/orders">
 <input type="hidden" name="_method" value="PATCH">
+  <label for="id">ID</label>  
   <input name="id"></input>
+  <label for="date">Date</label>
   <input name="date" type="date"></input>
+  <label for="country">Country</label>
   <input name="country"></input>
   <button type="submit">Patch</button>
 </form>

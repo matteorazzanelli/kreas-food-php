@@ -51,7 +51,7 @@ class Model
     $query = "UPDATE $table SET $placeholder WHERE $where_prop=:$where_prop;";
     try{
       $st = $this->pdo->prepare($query);
-      // bind all paramters
+      // bind all parameters
       array_map(fn($key, $value) => $st->bindValue(":$key", $value), $keys, $values);
       $st->bindValue(":$where_prop", $where_value);
       $res = $st->execute(); // is always true
