@@ -28,4 +28,11 @@ class OrderProductModel extends Model{
     }
     return true;
   }
+
+  public function updateOrderProduct($idOrder, $products, $quantities, $model){
+    // first delete from the table
+    $model->delete('orders_products', 'id_order', $idOrder);
+    // then add products as new ones
+    return $this->storeOrderProduct($idOrder, $products, $quantities, $model);
+  }
 }
