@@ -107,7 +107,24 @@ class OrdersController extends Controller {
       'date' => $_POST['date'],
       'country' => $_POST['country']
     ]);
-    if($updatedOrder){
+    // first try to update order
+    if(!$updatedOrder){
+      $this->setCode(404);
+      return $this->renderApi([
+        'result' => '-1', // fail
+        'page' => 'orders',
+        'message' => 'order does not exist'
+      ]);
+    }
+
+    // TODO: improve validator formatting
+    $products = explode(',',trim($_POST['products']," ,"));
+    $quantities = explode(',',trim($_POST['quantities']," ,"));
+
+    // then using its id and try to update products in the order
+    $order_product = new OrderProductModel();
+    $res = $order_product->updateOrderProduct($_POST['id'], $products, $quantities, $model);
+    if($res){
       $this->setCode(200);
       return $this->renderApi([
         'result' => $_POST['id'],
@@ -116,12 +133,13 @@ class OrdersController extends Controller {
       ]);
     }
     else{
-      $this->setCode(404);
+      $this->setCode(400);
       return $this->renderApi([
-        'result' => '-1', // fail
+        'result' => '-1',
         'page' => 'orders',
-        'message' => 'order does not exist'
+        'message' => 'bad request, new products not added '
       ]);
     }
+    
   }
 }
