@@ -45,6 +45,10 @@
   <input name="date" type="date"></input>
   <label for="country">Country</label>
   <input name="country"></input>
+  <label for="products">Products</label>
+  <input name="products" placeholder="separate with comma"></input>
+  <label for="quantities">Quantities</label>
+  <input name="quantities" placeholder="separate with comma"></input>
   <button type="submit">Patch</button>
 </form>
 

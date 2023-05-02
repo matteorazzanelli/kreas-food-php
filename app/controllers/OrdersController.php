@@ -36,9 +36,9 @@ class OrdersController extends Controller {
     // ];
     $model = App::get('model');
 
+    // TODO: improve validator formatting
     $products = explode(',',trim($_POST['products']," ,"));
     $quantities = explode(',',trim($_POST['quantities']," ,"));
-    // die();
 
     // return an id for storing products
     $idOrder = $model->insert('orders', [
@@ -56,12 +56,12 @@ class OrdersController extends Controller {
       ]);
     }
 
-    // then using its id try to add products in the order
+    // then using its id and try to add products in the order
     $order_product = new OrderProductModel();
     $res = $order_product->storeOrderProduct($idOrder, $products, $quantities, $model);
     if(!$res){
       $this->setCode(404);
-      var_dump('hererehe');
+      // TODO: if storing products fails, delete the entire order
       return $this->renderApi([
         'result' => '-1',
         'page' => 'orders',
