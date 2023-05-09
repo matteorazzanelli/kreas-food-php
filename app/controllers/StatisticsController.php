@@ -4,7 +4,7 @@
 
 namespace App\Controllers;
 
-class PagesController
+class StatisticsController
 {
   // Receive the request
 
@@ -15,8 +15,8 @@ class PagesController
   /**
    * Show the home page.
    */
-  public function home()
+  public function index()
   {
-    view('index');
+    view('statistics');
   }
 }
