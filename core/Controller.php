@@ -12,12 +12,13 @@ class Controller{
   private $content; 
   private $statusCode;
   private $contentType;
-  /**
-   * content, to be output
-   * objectPage, to render
-   * message, additional 
-   */
+  
   public function renderApi($data){
+    /**
+     * result, to be output
+     * page, to render
+     * message, additional 
+     */
     extract($data);
     if(getenv('FRONTEND')==true){
       $this->content = $result;
@@ -43,7 +44,7 @@ class Controller{
   }
 
   public function setCode($code){
-    // onlt if it is not already set
+    // to avoid status code to be re-written by some echo
     if($this->statusCode==null)
       $this->statusCode = $code;
   }
