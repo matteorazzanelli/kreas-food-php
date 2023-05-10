@@ -35,4 +35,15 @@ class OrderProductModel extends Model{
     // then add products as new ones
     return $this->storeOrderProduct($idOrder, $products, $quantities, $model);
   }
+
+  public function sumCO2ByProduct($idProduct){
+    $query = "SELECT SUM(quantity) as sum from orders_products as op 
+    INNER JOIN products as p ON op.id_product=p.id 
+    WHERE p.id=$idProduct;";
+
+    $st = $this->pdo->prepare($query);
+    $st->execute();
+
+    return $st->fetch(\PDO::FETCH_ASSOC);
+  }
 }
