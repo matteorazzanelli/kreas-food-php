@@ -5,8 +5,8 @@ use App\Core\Model;
 
 class OrderProductModel extends Model{
   
-  public function __construct(){
-    /*FIXME: $this->pdo = NULL */
+  public function __construct($pdo){
+    parent::__construct($pdo);
   }
 
   public function storeOrderProduct($idOrder, $products, $quantities, $model){

@@ -11,6 +11,10 @@ class Model
     $this->pdo = $pdo;
   }
 
+  public function getPDO(){
+    return $this->pdo;
+  }
+
   public function selectAll($table, $intoClass){
     $query = "SELECT * FROM $table";
     // all the following instructions can emit a ERRMODE_EXCEPTION
