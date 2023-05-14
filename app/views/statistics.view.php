@@ -17,6 +17,18 @@
 
 <h1>Filter by</h1>
 
+<h2>Product ID</h2>
+<form method="GET" action="/">
+  <label for="name">Product name</label>
+  <input id="name" name="name"></input><br>
+  <label for="country">Country</label>
+  <input id="country" name="country"></input><br>
+  <label for="start_date">From</label>
+  <input name="start_date" type="date"></input><br>
+  <label for="end_date">To</label>
+  <input name="end_date" type="date"></input><br>
+  <button type="submit">Filter</button>
+</form>
   
 
 
