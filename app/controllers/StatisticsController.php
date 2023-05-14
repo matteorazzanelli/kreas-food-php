@@ -1,7 +1,5 @@
 <?php
 
-// controller is responsible for recevingn request delegating and return a response
-
 namespace App\Controllers;
 
 use App\Core\{App, Controller};
@@ -18,12 +16,41 @@ class StatisticsController extends Controller
   public function index()
   {
     $model = App::get('model');
-    $products = $model->selectAll('products', 'App\\Models\\ProductModel');
+
+    // Validate inputs: should exist a specific class to handle them
+    $products = $_GET['name'] ? 
+      $model->getElementFromProperty('products', 'name', $_GET['name']) : 
+      $model->selectAll('products', 'App\\Models\\ProductModel');
+
+    $orders = $_GET['country'] ?
+      $model->getElementFromProperty('orders', 'country', $_GET['country']) : 
+      $model->selectAll('orders', 'App\\Models\\OrderModel');
+
+    $dates = ($_GET['start_date'] && $_GET['end_date']) ||
+      (!$_GET['start_date'] && !$_GET['end_date']) ? true : false;
+
+    // hypothesis: dates must be inserted both or none of them 
+    if(!$products || !$orders || !$dates){
+      $this->setCode(400);
+      return $this->renderApi([
+        'result' => 0,
+        'page' => 'statistics',
+        'message' => 'bad request'
+      ]);
+    }
+    
     $order_product = new OrderProductModel($model->getPDO());
+    $res = $order_product->sumCO2ByProperty([
+      'product' =>  $_GET['name'] ? $products['id'] : false,
+      'country' => $_GET['country'] ? $orders['id'] : false,
+      'fromDate' => $_GET['start_date'] ?? false,
+      'toDate' => $_GET['end_date'] ?? false
+    ]);
+
     $sumProducts = 0;
-    for($i = 0; $i < count($products); $i++){
-      $res = $order_product->sumCO2ByProduct($products[$i]->id);
-      $sumProducts += intval($res['sum'])*intval($products[$i]->co2);
+    for($i=0; $i<count($res); $i++){
+      $p = $model->getElementFromProperty('products', 'id', $res[$i]['id']);
+      $sumProducts += intval($res[$i]['sum'])*intval($p['co2']);
     }
 
     $this->setCode(200);
@@ -33,14 +60,5 @@ class StatisticsController extends Controller
       'message' => 'total CO2 saved'
     ]);
     
-    
-    // per ogni prodotto in products
-
-    // (...) as temp;
-
-    // select 
-
-    // // vai in order
-    // view('statistics');
   }
 }
