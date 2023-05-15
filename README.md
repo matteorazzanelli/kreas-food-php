@@ -88,7 +88,7 @@ Suppose we have to develop a web application capable of processing the four CRUD
 
 Essentiually, the REST interface is all but the mapping function between HTTP and CRUD methods.
 
-You can find this REST API in this project as class methods in the *Controller.php files.
+In this project the REST API are the methods of the Controllers' class in the OrdersController.php, ProductsController.php and StatisticsController.php files. Thus, the REST interface is represented by the set of all the methods defined in these classes.
 
 <!-- CONTACT -->
 ## Link & Contact
