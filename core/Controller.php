@@ -20,7 +20,7 @@ class Controller{
      * message, additional 
      */
     extract($data);
-    if(getenv('FRONTEND')==true){
+    if(getenv('FRONTEND')=='true'){
       $this->content = $result;
       $this->contentType = "Content-type:text/html";
     }
@@ -32,7 +32,7 @@ class Controller{
     header($this->contentType);
     http_response_code($this->statusCode);
 
-    if(getenv('FRONTEND')==true){
+    if(getenv('FRONTEND')=='true'){
       return view($page, [
         'result' => $this->content,
         'message' => $message
