@@ -17,7 +17,6 @@
 
 <h1>Filter by</h1>
 
-<h2>Product ID</h2>
 <form method="GET" action="/">
   <label for="name">Product name</label>
   <input id="name" name="name"></input><br>

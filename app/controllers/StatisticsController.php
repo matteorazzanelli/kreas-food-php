@@ -57,7 +57,7 @@ class StatisticsController extends Controller
     return $this->renderApi([
       'result' => $sumProducts,
       'page' => 'statistics',
-      'message' => 'total CO2 saved'
+      'message' => 'OK'
     ]);
     
   }
