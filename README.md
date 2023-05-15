@@ -6,7 +6,7 @@
 <div align="center">
   <h3 align="center">PHP e MySQL - Food</h3>
   <img src="app.png" alt="Screenshot">
-  <p align="center">Project created for <strong>Start2Impact</strong> course: <em>Vue.js - Advanced</em></p>
+  <p align="center">Project created for <strong>Start2Impact</strong> course: <em>PHP & MySQL project</em></p>
 </div>
 
 ### Built With
@@ -49,6 +49,8 @@ sudo /opt/lampp/lampp restart
 FRONTEND=<true_or_false>
 ```
 
+4. Go to [phpMyAdmin](http://localhost/phpmyadmin/index.php) (eventually follow [thish](ttps://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-20-04) guide); go to the *Import* section, choose the *migrations.sql* file taht is present in this folder and click on the *Import* button at the bottom. 
+
 4. Go to work directory
 ```
 cd kreas-food-php
@@ -74,7 +76,8 @@ php -S localhost:8000
 Response code : <STATUS_CODE>, <MESSAGE>
 ```
 where <STATUS_CODE> shows the response code of the previous request, while <MESSAGE> shows a more informative response for the user.
-- 
+- if you want to reproduce the structure
+
 <!-- CONTACT -->
 ## Link & Contact
 
