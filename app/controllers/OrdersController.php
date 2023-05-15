@@ -57,7 +57,7 @@ class OrdersController extends Controller {
     }
 
     // then using its id and try to add products in the order
-    $order_product = new OrderProductModel();
+    $order_product = new OrderProductModel($model->getPDO());
     $res = $order_product->storeOrderProduct($idOrder, $products, $quantities, $model);
     if(!$res){
       $this->setCode(404);
@@ -122,7 +122,7 @@ class OrdersController extends Controller {
     $quantities = explode(',',trim($_POST['quantities']," ,"));
 
     // then using its id and try to update products in the order
-    $order_product = new OrderProductModel();
+    $order_product = new OrderProductModel($model->getPDO());
     $res = $order_product->updateOrderProduct($_POST['id'], $products, $quantities, $model);
     if($res){
       $this->setCode(200);
