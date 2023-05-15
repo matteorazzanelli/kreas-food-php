@@ -15,7 +15,8 @@
 * [CSS 3](https://developer.mozilla.org/en-US/docs/Web/CSS)
 * [PHP](https://www.php.net/manual/en/getting-started.php) (follow also the [Laracats](https://laracasts.com/series/php-for-beginners) series)
 * [MySQL](https://dev.mysql.com/doc/mysql-getting-started/en/) (or get the following italian only [guide](https://www.html.it/guide/guida-mysql/))
-* or alternatively follow [this](https://www.html.it/pag/52749/impostare-un-ambiente-php-su-linux/) guide (italian only) 
+* or alternatively follow [this](https://www.html.it/pag/52749/impostare-un-ambiente-php-su-linux/) guide (italian only)
+* [REST API](https://www.html.it/guide/rest-api-e-database-la-guida/) (italian only); the project follows the REST API convention 
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -77,6 +78,17 @@ Response code : <STATUS_CODE>, <MESSAGE>
 ```
 where <STATUS_CODE> shows the response code of the previous request, while <MESSAGE> shows a more informative response for the user.
 - if you want to reproduce the structure
+
+## REST API
+The term REST is used to describe any type of interface capable of transmitting data by means of the HTTP protocol.
+
+The client will be responsible for requesting a service from the server, which will instead be responsible for providing it. 
+
+Suppose we have to develop a web application capable of processing the four CRUD (Create, Read, Update, Delete) operations. Our application, which will be nothing more than a PHP application, will have the task of calling, via a web API, an external service that will perform one of the CRUD operations.
+
+Essentiually, the REST interface is all but the mapping function between HTTP and CRUD methods.
+
+You can find this REST API in this project as class methods in the *Controller.php files.
 
 <!-- CONTACT -->
 ## Link & Contact
