@@ -76,8 +76,7 @@ php -S localhost:8000
 ```
 Response code : <STATUS_CODE>, <MESSAGE>
 ```
-where <STATUS_CODE> shows the response code of the previous request, while <MESSAGE> shows a more informative response for the user.
-- if you want to reproduce the structure
+where STATUS_CODE shows the response code of the previous request, while MESSAGE shows a more informative response for the user.
 
 ## REST API
 The term REST is used to describe any type of interface capable of transmitting data by means of the HTTP protocol.
