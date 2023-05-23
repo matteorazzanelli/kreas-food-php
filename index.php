@@ -2,13 +2,11 @@
 
 require 'vendor/autoload.php';
 
-require 'core/bootstrap.php';
+// load env variables
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-//settaggio delle variabili d'ambiente dal file .env
-$Envs= file(__DIR__."/example.env");
-foreach($Envs as $Env){
-  putenv(trim($Env));
-}
+require 'core/bootstrap.php';
 
 use App\Core\{Router, Request};
 

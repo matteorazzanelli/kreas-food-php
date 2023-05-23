@@ -2,10 +2,10 @@
 
 return [
     'database' => [
-        'name' => 'kreas',
-        'username' => 'root',
-        'password' => '',
-        'connection' => 'mysql:host=127.0.0.1',
+        'name' => $_ENV['DB_NAME'],
+        'username' => $_ENV['DB_USERNAME'],
+        'password' => $_ENV['DB_PASSWORD'],
+        'connection' => $_ENV['DB_CONNECTION'],
         'options' => [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]

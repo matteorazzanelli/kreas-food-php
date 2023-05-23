@@ -45,9 +45,13 @@ service mysql stop
 sudo /opt/lampp/lampp restart
 ```
 
-3. Choose if you want to display frontend or not by writing TRUE or FALSE in *example.env* file
+3. Rename *example.env* in *.env* and modify the following parameters with yours
 ```
 FRONTEND=<true_or_false>
+DB_NAME=<your_db_name>
+DB_USERNAME=<your_db_username>
+DB_PASSWORD=<your_db_password>
+DB_CONNECTION=<your_db_connection>
 ```
 
 4. Go to [phpMyAdmin](http://localhost/phpmyadmin/index.php) (eventually follow [thish](ttps://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-20-04) guide); go to the *Import* section, choose the *migrations.sql* file taht is present in this folder and click on the *Import* button at the bottom. 
