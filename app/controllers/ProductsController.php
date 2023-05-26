@@ -8,15 +8,8 @@ class ProductsController extends Controller{
   public function index(){
     $model = App::get('model');
     $products = $model->selectAll('products', 'App\\Models\\ProductModel');
-    if(is_array($products)){ // if the array is empty it doesn't mean the query is wrong
-      $this->setCode(200);
-      return $this->renderApi([
-        'result' => $products,
-        'page' => 'products',
-        'message' => 'showing complete list'
-      ]);
-    }
-    else{ // if it is not an array it was returned false => bad request! 
+    
+    if(!is_array($products)){// if it is not an array it was returned false => bad request! 
       $this->setCode(400);
       return $this->renderApi([
         'result' => [],
@@ -24,6 +17,14 @@ class ProductsController extends Controller{
         'message' => 'bad request'
       ]);
     }
+    
+    // if the array is empty it doesn't mean the query is wrong
+    $this->setCode(200);
+    return $this->renderApi([
+      'result' => $products,
+      'page' => 'products',
+      'message' => 'showing complete list'
+    ]);
   }
 
   public function store(){
@@ -32,15 +33,7 @@ class ProductsController extends Controller{
       'name' => $_POST['name'],
       'co2' => $_POST['co2']
     ]);
-    if($newProduct){
-      $this->setCode(201);
-      return $this->renderApi([
-        'result' => $newProduct,
-        'page' => 'products',
-        'message' => 'new product added with ID'
-      ]);
-    }
-    else{
+    if(!$newProduct){
       $this->setCode(400);
       return $this->renderApi([
         'result' => [],
@@ -48,21 +41,18 @@ class ProductsController extends Controller{
         'message' => 'may be the product is already added'
       ]);
     }
+    $this->setCode(201);
+    return $this->renderApi([
+      'result' => $newProduct,
+      'page' => 'products',
+      'message' => 'new product added with ID'
+    ]);
   }
 
   public function delete(){
-    // die(var_dump($_POST));
     $model = App::get('model');
     $deletedProduct = $model->delete('products', 'id', $_POST['id']);
-    if($deletedProduct){
-      $this->setCode(200);
-      return $this->renderApi([
-        'result' => $_POST['id'],
-        'page' => 'products',
-        'message' => 'deleted correctly product '
-      ]);
-    }
-    else{
+    if(!$deletedProduct){
       $this->setCode(404);
       return $this->renderApi([
         'result' => '-1', // fail
@@ -70,6 +60,12 @@ class ProductsController extends Controller{
         'message' => 'product does not exist'
       ]);
     }
+    $this->setCode(200);
+    return $this->renderApi([
+      'result' => $_POST['id'],
+      'page' => 'products',
+      'message' => 'deleted correctly product '
+    ]);
   }
 
   public function patch(){
@@ -78,15 +74,7 @@ class ProductsController extends Controller{
       'name' => $_POST['name'],
       'co2' => $_POST['co2']
     ]);
-    if($updatedProduct){
-      $this->setCode(200);
-      return $this->renderApi([
-        'result' => $_POST['id'],
-        'page' => 'products',
-        'message' => 'updated correctly product '
-      ]);
-    }
-    else{
+    if(!$updatedProduct){
       $this->setCode(404);
       return $this->renderApi([
         'result' => '-1', // fail
@@ -94,5 +82,11 @@ class ProductsController extends Controller{
         'message' => 'product does not exist'
       ]);
     }
+    $this->setCode(200);
+      return $this->renderApi([
+        'result' => $_POST['id'],
+        'page' => 'products',
+        'message' => 'updated correctly product '
+      ]);
   }
 }

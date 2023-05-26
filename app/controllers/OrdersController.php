@@ -9,15 +9,7 @@ class OrdersController extends Controller {
   public function index(){
     $model = App::get('model');
     $orders = $model->selectAll('orders', 'App\\Models\\OrderModel');
-    if(is_array($orders)){ // if the array is empty it doesn't mean the query is wrong
-      $this->setCode(200);
-      return $this->renderApi([
-        'result' => $orders,
-        'page' => 'orders',
-        'message' => 'showing complete list'
-      ]);
-    }
-    else{ // if it is not an array it was returned false => bad request! 
+    if(!is_array($orders)){ 
       $this->setCode(400);
       return $this->renderApi([
         'result' => [],
@@ -25,6 +17,13 @@ class OrdersController extends Controller {
         'message' => 'bad request'
       ]);
     }
+
+    $this->setCode(200);
+      return $this->renderApi([
+        'result' => $orders,
+        'page' => 'orders',
+        'message' => 'showing complete list'
+      ]);
   }
 
   public function store(){
@@ -68,30 +67,20 @@ class OrdersController extends Controller {
         'message' => 'one or more products not found'
       ]);
     }
-    else{
-      // if we are here, the order has been well processed
-      $this->setCode(201);
-      return $this->renderApi([
-        'result' => $idOrder,
-        'page' => 'orders',
-        'message' => 'new order added with ID'
-      ]);
-    }    
+    // if we are here, the order has been well processed
+    $this->setCode(201);
+    return $this->renderApi([
+      'result' => $idOrder,
+      'page' => 'orders',
+      'message' => 'new order added with ID'
+    ]);
   }
 
   public function delete(){
     // die(var_dump($_POST));
     $model = App::get('model');
     $deletedOrder = $model->delete('orders', 'id', $_POST['id']);
-    if($deletedOrder){
-      $this->setCode(200);
-      return $this->renderApi([
-        'result' => $_POST['id'],
-        'page' => 'orders',
-        'message' => 'deleted correctly order '
-      ]);
-    }
-    else{
+    if(!$deletedOrder){
       $this->setCode(404);
       return $this->renderApi([
         'result' => '-1', // fail
@@ -99,6 +88,12 @@ class OrdersController extends Controller {
         'message' => 'order does not exist'
       ]);
     }
+    $this->setCode(200);
+    return $this->renderApi([
+      'result' => $_POST['id'],
+      'page' => 'orders',
+      'message' => 'deleted correctly order '
+    ]);
   }
 
   public function patch(){
@@ -124,15 +119,7 @@ class OrdersController extends Controller {
     // then using its id and try to update products in the order
     $order_product = new OrderProductModel($model->getPDO());
     $res = $order_product->updateOrderProduct($_POST['id'], $products, $quantities, $model);
-    if($res){
-      $this->setCode(200);
-      return $this->renderApi([
-        'result' => $_POST['id'],
-        'page' => 'orders',
-        'message' => 'updated correctly order '
-      ]);
-    }
-    else{
+    if(!$res){
       $this->setCode(400);
       return $this->renderApi([
         'result' => '-1',
@@ -140,6 +127,12 @@ class OrdersController extends Controller {
         'message' => 'bad request, new products not added '
       ]);
     }
+    $this->setCode(200);
+    return $this->renderApi([
+      'result' => $_POST['id'],
+      'page' => 'orders',
+      'message' => 'updated correctly order '
+    ]);
     
   }
 }
