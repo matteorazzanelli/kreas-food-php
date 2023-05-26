@@ -40,7 +40,7 @@ class StatisticsController extends Controller
     }
     
     $order_product = new OrderProductModel($model->getPDO());
-    $res = $order_product->sumCO2ByProperty([
+    $products_quantities = $order_product->sumCO2ByProperty([
       'product' =>  $_GET['name'] ? $products['id'] : false,
       'country' => $_GET['country'] ? $orders['id'] : false,
       'fromDate' => $_GET['start_date'] ?? false,
@@ -48,9 +48,10 @@ class StatisticsController extends Controller
     ]);
 
     $sumProducts = 0;
-    for($i=0; $i<count($res); $i++){
-      $p = $model->getElementFromProperty('products', 'id', $res[$i]['id']);
-      $sumProducts += intval($res[$i]['sum'])*intval($p['co2']);
+
+    foreach($products_quantities as $p_q){
+      $p = $model->getElementFromProperty('products', 'id', $p_q['id']);
+      $sumProducts += intval($p_q['sum'])*intval($p['co2']);
     }
 
     $this->setCode(200);
