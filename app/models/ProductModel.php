@@ -1,14 +1,16 @@
 <?php
+
 namespace App\Models;
 
 use App\Core\Model;
 
-class ProductModel extends Model{
+class ProductModel extends Model
+{
+    public $name;
+    public $co2;
 
-  public $name;
-  public $co2;
-
-  public function __construct(){
-    /*FIXME: $this->pdo = NULL */
-  }
+    public function __construct()
+    {
+        /*FIXME: $this->pdo = NULL */
+    }
 }

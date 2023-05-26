@@ -1,16 +1,18 @@
 <?php
+
 // it is a place to register or bind dependencies , it is just a storage place
-//  like a little registry and then when we fetch these value 
+//  like a little registry and then when we fetch these value
 //  we can resolve them out of our container
 
 namespace App\Core;
 
-class App{
-  /**
-     * All registered keys.
-     *
-     * @var array
-     */
+class App
+{
+    /**
+       * All registered keys.
+       *
+       * @var array
+       */
     protected static $registry = [];
 
     /**
@@ -21,7 +23,7 @@ class App{
      */
     public static function bind($key, $value)
     {
-      // because the object is static
+        // because the object is static
         static::$registry[$key] = $value;
     }
 
