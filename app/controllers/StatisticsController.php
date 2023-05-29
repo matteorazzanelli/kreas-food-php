@@ -16,30 +16,27 @@ class StatisticsController extends Controller
     public function index()
     {
         $model = App::get('model');
+        $order_product = new OrderProductModel($model->getPDO());
+        $result = $order_product->sumCO2Total();
+        // die(var_dump($result));
 
-        // Validate inputs: should exist a specific class to handle them
-        $products = $_GET['name'] ?
-          $model->getElementFromProperty('products', 'name', $_GET['name']) :
-          $model->selectAll('products', 'App\\Models\\ProductModel');
-
-        $orders = $_GET['country'] ?
-          $model->getElementFromProperty('orders', 'country', $_GET['country']) :
-          $model->selectAll('orders', 'App\\Models\\OrderModel');
-
-        $dates = ($_GET['start_date'] && $_GET['end_date']) ||
-          (!$_GET['start_date'] && !$_GET['end_date']) ? true : false;
-
-        // hypothesis: dates must be inserted both or none of them
-        if(!$products || !$orders || !$dates) {
-            $this->setCode(400);
-            return $this->renderApi([
-              'result' => 0,
-              'page' => 'statistics',
-              'message' => 'bad request'
-            ]);
+        if(!$result) {
+          $this->setCode(400);
+          return $this->renderApi([
+            'result' => 0,
+            'page' => 'statistics',
+            'message' => 'bad request'
+          ]);
         }
 
-        $order_product = new OrderProductModel($model->getPDO());
+        $this->setCode(200);
+        return $this->renderApi([
+          'result' => $result['total'],
+          'page' => 'statistics',
+          'message' => 'OK'
+        ]);
+
+    }
         $products_quantities = $order_product->sumCO2ByProperty([
           'product' =>  $_GET['name'] ? $products['id'] : false,
           'country' => $_GET['country'] ? $orders['id'] : false,

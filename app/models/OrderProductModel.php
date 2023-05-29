@@ -39,6 +39,22 @@ class OrderProductModel extends Model
         return $this->storeOrderProduct($idOrder, $products, $quantities, $model);
     }
 
+    public function sumCO2Total(){
+        $query =
+          "SELECT SUM(t.sum*p.co2) as total from 
+          (
+            SELECT p.id,SUM(quantity) as sum from orders_products as op 
+            INNER JOIN products as p ON op.id_product=p.id 
+            INNER JOIN orders as o on op.id_order=o.id 
+            GROUP BY p.id
+          ) t 
+          INNER JOIN products as p ON t.id=p.id;";
+        $st = $this->pdo->prepare($query);
+        $st->execute();
+        
+        return $st->fetch(\PDO::FETCH_ASSOC);
+    } 
+
     public function sumCO2ByProperty($data)
     {
         extract($data);
