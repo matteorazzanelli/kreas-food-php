@@ -3,6 +3,8 @@
 // to call names only for post requests comment out above and then do:
 $this->get('', 'StatisticsController@index');
 
+$this->get('filter', 'StatisticsController@filter');
+
 $this->get('products', 'ProductsController@index');
 $this->post('products', 'ProductsController@store');
 $this->delete('products', 'ProductsController@delete');

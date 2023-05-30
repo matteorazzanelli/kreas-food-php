@@ -4,7 +4,6 @@
   <p>
     In the following will be shown:
     <ul>
-      <li>the last operation result if selected</li>
       <li>the total co2 saved otherwise</li>
     </ul>
   </p>
@@ -17,7 +16,7 @@
 
 <h1>Filter by</h1>
 
-<form method="GET" action="/">
+<form method="GET" action="/filter">
   <label for="name">Product name</label>
   <input id="name" name="name"></input><br>
   <label for="country">Country</label>
