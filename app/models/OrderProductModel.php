@@ -52,9 +52,9 @@ class OrderProductModel extends Model
           INNER JOIN products as p ON t.id=p.id;";
         $st = $this->pdo->prepare($query);
         $st->execute();
-        
+
         return $st->fetch(\PDO::FETCH_ASSOC);
-    } 
+    }
 
     public function sumCO2ByProperty($data)
     {
@@ -69,14 +69,14 @@ class OrderProductModel extends Model
             $fromDate = $res['fromDate'];
         }
 
-        if(!$toDate){
+        if(!$toDate) {
             $query = "SELECT CAST(CURRENT_TIMESTAMP as DATE) as toDate;";
             $st = $this->pdo->prepare($query);
             $st->execute();
             $res = $st->fetch(\PDO::FETCH_ASSOC);
             $toDate = $res['toDate'];
         }
-        
+
         $query =
           "SELECT SUM(t.sum*p.co2) as total from 
           (
@@ -96,11 +96,10 @@ class OrderProductModel extends Model
         }
         if(!($product || $country)) {
             $query = $query . ' o.date BETWEEN :from_date AND :to_date';
-        }
-        else{
+        } else {
             $query = $query . ' AND o.date BETWEEN :from_date AND :to_date';
         }
-        
+
         // close the query
         $query = $query . " GROUP BY p.id
           ) t 
